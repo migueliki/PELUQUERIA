@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import ProjectGrid from "@/components/sections/ProjectGrid";
 import BeforeAfterSection from "@/components/sections/BeforeAfterSection";
 import { useBooking } from "@/context/BookingContext";
@@ -15,7 +15,7 @@ export default function GaleriaPage() {
       {/* Page Header */}
       <section className="pt-40 pb-20 px-6">
         <div className="container mx-auto">
-          <motion.div 
+          <m.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="max-w-4xl"
@@ -26,7 +26,7 @@ export default function GaleriaPage() {
             <p className="text-xl text-white/50 max-w-2xl font-light leading-relaxed">
               Explora una selección de nuestros trabajos más recientes. Desde cambios de color radicales hasta cortes clásicos con un toque moderno.
             </p>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 

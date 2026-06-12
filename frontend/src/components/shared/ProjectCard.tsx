@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { m, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { Project } from "@/types";
@@ -14,7 +14,7 @@ interface ProjectCardProps {
 const ProjectCard = ({ project, onViewProject }: ProjectCardProps) => {
   return (
     <div className="col-span-1 h-full">
-      <motion.div
+      <m.div
         initial={{ scale: 0.7, opacity: 0, y: 50 }}
         whileInView={{ scale: 1, opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
@@ -56,7 +56,7 @@ const ProjectCard = ({ project, onViewProject }: ProjectCardProps) => {
             </div>
           </div>
         </div>
-      </motion.div>
+      </m.div>
     </div>
   );
 };

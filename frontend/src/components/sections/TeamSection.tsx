@@ -2,7 +2,7 @@
 
 import React, { memo, useCallback } from "react";
 import type { UIEvent } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Image from "next/image";
 import { GraduationCap, Award, Briefcase, ChevronLeft, ChevronRight } from "lucide-react";
 import { fadeInUp } from "@/lib/animations";
@@ -27,7 +27,7 @@ const TEAM: TeamMember[] = [
 ];
 
 const TeamMemberCard = memo(({ member }: { member: TeamMember }) => (
-  <motion.div variants={fadeInUp} className="group relative">
+  <m.div variants={fadeInUp} className="group relative">
     <div className="relative aspect-square rounded-lg overflow-hidden bg-brand-gray/50 border border-white/5 mb-3 group-hover:border-brand-accent/30 transition-colors duration-500 shadow-2xl">
       <Image 
         src={member.image} 
@@ -60,7 +60,7 @@ const TeamMemberCard = memo(({ member }: { member: TeamMember }) => (
       <p className="text-brand-accent font-bold text-xs uppercase tracking-widest mb-4 opacity-80">{member.role}</p>
       <p className="text-white/40 text-sm font-light leading-relaxed max-w-sm">{member.description}</p>
     </div>
-  </motion.div>
+  </m.div>
 ));
 
 TeamMemberCard.displayName = "TeamMemberCard";
@@ -79,12 +79,12 @@ const TeamSection = () => {
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row items-end justify-between mb-8 gap-8">
           <div className="text-left">
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="inline-flex items-center gap-2 text-brand-accent font-bold tracking-[0.3em] text-xs uppercase mb-6">
+            <m.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="inline-flex items-center gap-2 text-brand-accent font-bold tracking-[0.3em] text-xs uppercase mb-6">
               <div className="w-8 h-0.5 bg-brand-accent" /> Nuestro Equipo
-            </motion.div>
-            <motion.h2 variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true }} className="text-4xl md:text-6xl font-bold tracking-tighter text-white leading-none">
+            </m.div>
+            <m.h2 variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true }} className="text-4xl md:text-6xl font-bold tracking-tighter text-white leading-none">
               Maestros <br /> del Estilo
-            </motion.h2>
+            </m.h2>
           </div>
 
           <div className="flex gap-4 mb-4">

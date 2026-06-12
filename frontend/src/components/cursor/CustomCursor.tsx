@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useCallback } from "react";
-import { motion, useReducedMotion, useSpring } from "framer-motion";
+import { m, useReducedMotion, useSpring } from "framer-motion";
 
 const CustomCursor = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -53,7 +53,7 @@ const CustomCursor = () => {
   if (!isEnabled || !isVisible) return null;
 
   return (
-    <motion.div
+    <m.div
       animate={{ scale: isClicked ? 0.85 : 1 }}
       transition={{ type: "spring", stiffness: 500, damping: 30 }}
       style={{

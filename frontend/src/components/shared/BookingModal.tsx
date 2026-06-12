@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import {
   X,
   Calendar as CalendarIcon,
@@ -99,7 +99,7 @@ const BookingModalContent = ({
   return (
     <AnimatePresence>
       <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-6">
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -107,7 +107,7 @@ const BookingModalContent = ({
           className="absolute inset-0 bg-black/80 backdrop-blur-md"
         />
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -123,7 +123,7 @@ const BookingModalContent = ({
           <div className="p-8 md:p-12">
             <AnimatePresence mode="wait">
               {step === 1 && (
-                <motion.div
+                <m.div
                   key="step1"
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -142,11 +142,11 @@ const BookingModalContent = ({
                       nextStep();
                     }}
                   />
-                </motion.div>
+                </m.div>
               )}
 
               {step === 2 && (
-                <motion.div
+                <m.div
                   key="step2"
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -178,11 +178,11 @@ const BookingModalContent = ({
                       </button>
                     ))}
                   </div>
-                </motion.div>
+                </m.div>
               )}
 
               {step === 3 && (
-                <motion.div
+                <m.div
                   key="step3"
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -263,11 +263,11 @@ const BookingModalContent = ({
                       Confirmar Cita
                     </button>
                   </form>
-                </motion.div>
+                </m.div>
               )}
 
               {step === 4 && (
-                <motion.div
+                <m.div
                   key="step4"
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -289,11 +289,11 @@ const BookingModalContent = ({
                   >
                     Cerrar
                   </button>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </AnimatePresence>
   );

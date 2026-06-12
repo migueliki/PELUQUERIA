@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Image from "next/image";
 import { fadeInUp } from "@/lib/animations";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -63,7 +63,7 @@ const BeforeAfterSection = () => {
     <section className="py-32 bg-transparent overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="text-center mb-20">
-          <motion.div
+          <m.div
             variants={fadeInUp}
             initial="initial"
             whileInView="animate"
@@ -72,8 +72,8 @@ const BeforeAfterSection = () => {
           >
             <div className="w-8 h-0.5 bg-white/40" />
             Transformaciones
-          </motion.div>
-          <motion.h2
+          </m.div>
+          <m.h2
             variants={fadeInUp}
             initial="initial"
             whileInView="animate"
@@ -81,7 +81,7 @@ const BeforeAfterSection = () => {
             className="text-6xl md:text-7xl font-bold tracking-tighter text-white"
           >
             El Arte del <span className="italic text-white/30">Cambio</span>
-          </motion.h2>
+          </m.h2>
         </div>
 
         <div className="relative max-w-5xl mx-auto group">
@@ -100,7 +100,7 @@ const BeforeAfterSection = () => {
             <ChevronRight size={32} />
           </button>
 
-          <motion.div
+          <m.div
             key={currentIndex}
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -159,7 +159,7 @@ const BeforeAfterSection = () => {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Mobile Navigation */}
           <div className="flex justify-center gap-4 mt-8 lg:hidden">

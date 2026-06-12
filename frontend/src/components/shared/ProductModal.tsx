@@ -1,7 +1,7 @@
 "use client";
 
 import React, { memo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { X, ShieldCheck, HelpCircle, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { useScrollLock } from "@/hooks/useScrollLock";
@@ -35,8 +35,8 @@ const ProductModal = ({ product, isOpen, onClose, onReserve }: ProductModalProps
     <AnimatePresence>
       {isOpen && (
         <>
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="fixed inset-0 z-[300] bg-black/60 backdrop-blur-sm" />
-          <motion.div
+          <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="fixed inset-0 z-[300] bg-black/60 backdrop-blur-sm" />
+          <m.div
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
@@ -114,7 +114,7 @@ const ProductModal = ({ product, isOpen, onClose, onReserve }: ProductModalProps
                 </div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         </>
       )}
     </AnimatePresence>

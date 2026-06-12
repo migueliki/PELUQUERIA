@@ -2,7 +2,7 @@
 
 import React, { useMemo } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Scissors, Phone } from "lucide-react";
 import { useBooking } from "@/context/BookingContext";
 import { useScrollTo } from "@/hooks/useScrollTo";
@@ -31,7 +31,7 @@ const Navbar = () => {
   )), [pathname, scrollToSection]);
 
   return (
-    <motion.nav
+    <m.nav
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -68,7 +68,7 @@ const Navbar = () => {
           Reserva Cita
         </button>
       </div>
-    </motion.nav>
+    </m.nav>
   );
 };
 

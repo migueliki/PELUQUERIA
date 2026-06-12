@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { X, Calendar, User, Heart } from "lucide-react";
 import { BlogPost } from "@/data/blog";
@@ -55,7 +55,7 @@ const BlogPostModalContent = ({
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 md:p-12 lg:p-20">
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -63,7 +63,7 @@ const BlogPostModalContent = ({
             className="absolute inset-0 bg-black/80 backdrop-blur-md"
           />
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -135,7 +135,7 @@ const BlogPostModalContent = ({
                 <CommentPanel />
               </div>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       )}
     </AnimatePresence>

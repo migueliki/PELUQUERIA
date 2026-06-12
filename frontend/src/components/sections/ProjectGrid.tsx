@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useCallback } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import ProjectCard from "../shared/ProjectCard";
 import ProjectModal from "../shared/ProjectModal";
 import { Project } from "@/types";
@@ -33,7 +33,7 @@ const ProjectGrid = () => {
           <p className="text-white/40 mt-4 text-xl">Una muestra de nuestro arte en Cartagena</p>
         </div>
         
-        <motion.div
+        <m.div
           variants={staggerContainer}
           initial="initial"
           whileInView="animate"
@@ -45,7 +45,7 @@ const ProjectGrid = () => {
               <ProjectCard project={project} onViewProject={handleViewProject} />
             </div>
           ))}
-        </motion.div>
+        </m.div>
       </div>
 
       <ProjectModal 

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Image from "next/image";
 import { Star } from "lucide-react";
 import { fadeInUp, staggerContainer, spinOnScroll } from "@/lib/animations";
@@ -13,7 +13,7 @@ const TestimonialSection = () => {
   return (
     <section id="testimonials" className="py-20 bg-transparent overflow-hidden scroll-mt-20">
       <div className="container mx-auto px-6 mb-20 text-center">
-        <motion.div
+        <m.div
           variants={fadeInUp}
           initial="initial"
           whileInView="animate"
@@ -22,9 +22,9 @@ const TestimonialSection = () => {
         >
           <div className="w-8 h-[1px] bg-white/40" />
           Testimonios
-        </motion.div>
+        </m.div>
         
-        <motion.h2
+        <m.h2
           variants={fadeInUp}
           initial="initial"
           whileInView="animate"
@@ -32,12 +32,12 @@ const TestimonialSection = () => {
           className="text-6xl md:text-[8rem] font-bold tracking-tighter text-white leading-none"
         >
           Lo que dicen <br /> de nosotros
-        </motion.h2>
+        </m.h2>
       </div>
 
       {/* Infinite Marquee Wrapper */}
       <div className="relative flex overflow-x-hidden">
-        <motion.div
+        <m.div
           animate={{ x: ["0%", "-50%"] }}
           transition={{ 
             repeat: Infinity, 
@@ -51,14 +51,14 @@ const TestimonialSection = () => {
               <TestimonialCard testimonial={testimonial} />
             </div>
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );
 };
 
 const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => (
-  <motion.div
+  <m.div
     variants={spinOnScroll}
     initial="initial"
     animate="animate"
@@ -88,7 +88,7 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => (
         {[...Array(5)].map((_, i) => {
           const fill = Math.max(0, Math.min(1, testimonial.rating - i));
           return (
-            <motion.div
+            <m.div
               key={i}
               initial={{ opacity: 0, scale: 0 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -108,12 +108,12 @@ const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => (
                   <Star size={18} className="fill-white text-white" />
                 </div>
               )}
-            </motion.div>
+            </m.div>
           );
         })}
       </div>
     </div>
-  </motion.div>
+  </m.div>
 );
 
 export default TestimonialSection;

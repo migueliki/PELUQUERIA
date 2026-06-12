@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Image from "next/image";
 import { Heart, MessageCircle, Share2, Calendar, User, ArrowRight } from "lucide-react";
 import { BLOG_POSTS, BlogPost } from "@/data/blog";
@@ -15,7 +15,7 @@ const BlogSection = () => {
   return (
     <section className="py-24 bg-transparent relative z-10">
       <div className="container mx-auto px-6">
-        <motion.div
+        <m.div
           variants={staggerContainer}
           initial="initial"
           whileInView="animate"
@@ -29,7 +29,7 @@ const BlogSection = () => {
               onOpen={() => setSelectedPost(post)}
             />
           ))}
-        </motion.div>
+        </m.div>
       </div>
 
       <BlogPostModal 
@@ -52,7 +52,7 @@ const BlogCard = ({ post, onOpen }: { post: BlogPost, onOpen: () => void }) => {
   };
 
   return (
-    <motion.div
+    <m.div
       variants={fadeInUp}
       onClick={onOpen}
       className="glass-dark rounded-lg border border-white/5 overflow-hidden group hover:border-white/20 transition-all duration-500 flex flex-col cursor-pointer h-full"
@@ -116,7 +116,7 @@ const BlogCard = ({ post, onOpen }: { post: BlogPost, onOpen: () => void }) => {
           Leer más <ArrowRight size={16} className="group-hover/btn:translate-x-2 transition-transform" />
         </button>
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 

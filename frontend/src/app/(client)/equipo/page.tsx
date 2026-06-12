@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import TeamSection from "@/components/sections/TeamSection";
 import { useBooking } from "@/context/BookingContext";
 import { fadeInUp } from "@/lib/animations";
@@ -15,7 +15,7 @@ export default function EquipoPage() {
       {/* Page Header */}
       <section className="pt-40 pb-20 px-6">
         <div className="container mx-auto">
-          <motion.div 
+          <m.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="max-w-4xl"
@@ -26,7 +26,7 @@ export default function EquipoPage() {
             <p className="text-xl text-white/50 max-w-2xl font-light leading-relaxed">
               Un equipo de apasionados por la belleza y el cuidado personal, comprometidos con la formación continua y la excelencia en cada servicio.
             </p>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 
@@ -35,7 +35,7 @@ export default function EquipoPage() {
       {/* CTA Section */}
       <section className="py-32 px-6">
         <div className="container mx-auto text-center">
-          <motion.div
+          <m.div
             variants={fadeInUp}
             initial="initial"
             whileInView="animate"
@@ -54,7 +54,7 @@ export default function EquipoPage() {
             >
               Reservar con el Equipo
             </button>
-          </motion.div>
+          </m.div>
         </div>
       </section>
     </main>

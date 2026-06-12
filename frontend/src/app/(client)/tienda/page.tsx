@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import ServicesSection from "@/components/sections/ServicesSection";
 import { useBooking } from "@/context/BookingContext";
 import { fadeInUp } from "@/lib/animations";
@@ -15,7 +15,7 @@ export default function TiendaPage() {
       {/* Page Header */}
       <section className="pt-40 pb-20 px-6">
         <div className="container mx-auto">
-          <motion.div 
+          <m.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="max-w-4xl"
@@ -26,7 +26,7 @@ export default function TiendaPage() {
             <p className="text-xl text-white/50 max-w-2xl font-light leading-relaxed">
               Productos de alta gama seleccionados por nuestros expertos para mantener la salud y el brillo de tu cabello entre visitas al salón.
             </p>
-          </motion.div>
+          </m.div>
         </div>
       </section>
 

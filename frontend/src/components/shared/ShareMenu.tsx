@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { Share2, Copy, Check, Send as SendIcon } from "lucide-react";
 
 // Custom Social Icons to avoid import issues
@@ -82,7 +82,7 @@ const ShareMenu = ({ className = "", align = "left", iconSize = 24 }: ShareMenuP
 
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
@@ -114,7 +114,7 @@ const ShareMenu = ({ className = "", align = "left", iconSize = 24 }: ShareMenuP
                 {copied ? '¡Copiado!' : 'Copiar enlace'}
               </span>
             </button>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

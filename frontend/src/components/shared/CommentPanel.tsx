@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { User, Send, Reply, Heart, MoreHorizontal, Trash2 } from "lucide-react";
 
 interface Comment {
@@ -168,7 +168,7 @@ const CommentItem = ({
   };
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       className={`flex gap-4 ${isReply ? 'ml-12 mt-6' : ''}`}
@@ -223,7 +223,7 @@ const CommentItem = ({
         {/* Reply Input */}
         <AnimatePresence>
           {showReplyInput && (
-            <motion.div
+            <m.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
@@ -245,7 +245,7 @@ const CommentItem = ({
                   <Send size={16} />
                 </button>
               </div>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
 
@@ -258,7 +258,7 @@ const CommentItem = ({
           </div>
         )}
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 

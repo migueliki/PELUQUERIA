@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { X, Clock, Banknote, Scissors, Calendar } from "lucide-react";
 import { Project } from "@/types";
 import { useBooking } from "@/context/BookingContext";
@@ -40,7 +40,7 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
       {isOpen && (
         <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 md:p-12 lg:p-20">
           {/* Backdrop */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -49,7 +49,7 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
           />
 
           {/* Modal Content */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -155,7 +155,7 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
                 Reservar este Estilo
               </button>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       )}
     </AnimatePresence>

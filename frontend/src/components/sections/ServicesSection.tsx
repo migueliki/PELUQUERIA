@@ -2,7 +2,7 @@
 
 import React, { useState, memo, useCallback } from "react";
 import type { UIEvent } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Image from "next/image";
 import { ShoppingBag, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { fadeInUp } from "@/lib/animations";
@@ -33,7 +33,7 @@ const PRODUCTS_ROW_1 = [...PRODUCTS];
 const PRODUCTS_ROW_2 = [...PRODUCTS].reverse();
 
 const ProductCard = memo(({ product, onClick }: { product: Product, onClick: () => void }) => (
-  <motion.div 
+  <m.div 
     variants={fadeInUp} 
     className={`group relative h-full cursor-pointer transition-all duration-500 ${product.stock === 0 ? 'opacity-60 grayscale-[0.8]' : ''}`} 
     onClick={onClick}
@@ -70,7 +70,7 @@ const ProductCard = memo(({ product, onClick }: { product: Product, onClick: () 
       </div>
       <p className="text-white/40 text-sm font-light leading-relaxed">{product.description}</p>
     </div>
-  </motion.div>
+  </m.div>
 ));
 
 ProductCard.displayName = "ProductCard";
@@ -109,16 +109,16 @@ const ServicesSection = () => {
       <div className="container mx-auto px-6">
         <div className="flex flex-col lg:flex-row gap-20 items-end justify-between mb-12">
           <div className="lg:w-1/2">
-            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-1.5 rounded-full text-xs font-bold mb-8 w-fit text-white/40">
+            <m.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-1.5 rounded-full text-xs font-bold mb-8 w-fit text-white/40">
               <ShoppingBag size={14} />
               <span className="tracking-widest uppercase">Tienda Baskuñana</span>
-            </motion.div>
-            <motion.h2 variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true }} className="text-4xl md:text-6xl font-bold tracking-tighter mb-4 leading-[0.9] text-white">
+            </m.div>
+            <m.h2 variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true }} className="text-4xl md:text-6xl font-bold tracking-tighter mb-4 leading-[0.9] text-white">
               Cuidado <br /> de Autor
-            </motion.h2>
-            <motion.p variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true }} className="text-lg text-white/50 max-w-xl font-light leading-relaxed">
+            </m.h2>
+            <m.p variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true }} className="text-lg text-white/50 max-w-xl font-light leading-relaxed">
               Lleva la experiencia del salón a tu casa con nuestra selección exclusiva de productos premium.
-            </motion.p>
+            </m.p>
           </div>
 
           <div className="flex gap-4 mb-4">
