@@ -26,6 +26,7 @@ COPY package.json ./
 RUN npm install --no-audit --no-fund
 
 COPY vite.config.js tailwind.config.js postcss.config.js ./
+COPY --from=composer /app/vendor ./vendor
 COPY resources/ ./resources/
 
 RUN npm run build
