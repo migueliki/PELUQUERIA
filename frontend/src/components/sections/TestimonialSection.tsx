@@ -4,10 +4,9 @@ import React from "react";
 import { m } from "framer-motion";
 import Image from "next/image";
 import { Star } from "lucide-react";
-import { fadeInUp, staggerContainer, spinOnScroll } from "@/lib/animations";
+import { fadeInUp, spinOnScroll } from "@/lib/animations";
 import { TESTIMONIALS } from "@/data/testimonials";
 import { Testimonial } from "@/types";
-import { useBooking } from "@/context/BookingContext";
 
 const TestimonialSection = () => {
   return (

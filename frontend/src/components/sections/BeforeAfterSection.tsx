@@ -15,13 +15,13 @@ const TRANSFORMATIONS = [
   },
   {
     id: 2,
-    before: "/assets/hair-1.png",
+    before: "/assets/hair-1.jpg",
     after: "/assets/hair-5.png",
     title: "Iluminación Balayage"
   },
   {
     id: 3,
-    before: "/assets/hair-2.png",
+    before: "/assets/hair-2.jpg",
     after: "/assets/hair-3.png",
     title: "Corte y Estilo"
   }
@@ -138,6 +138,7 @@ const BeforeAfterSection = () => {
                 src={TRANSFORMATIONS[currentIndex].before}
                 alt="Before"
                 fill
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 1024px"
               />

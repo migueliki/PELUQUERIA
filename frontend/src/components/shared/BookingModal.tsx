@@ -27,6 +27,14 @@ const TIME_SLOTS = [
   "20:00",
 ];
 
+const PROFESSIONALS = [
+  { id: "any", name: "Cualquiera", role: "El primero disponible" },
+  { id: "elena", name: "Elena Baskuñana", role: "Directora Creativa & Visagismo" },
+  { id: "marco", name: "Marco Antonio", role: "Senior Stylist & Color Expert" },
+  { id: "sofia", name: "Sofía Martín", role: "Terapeuta Capilar & Estilista" },
+  { id: "ismael", name: "Ismael Ruiz", role: "Barber & Fade Specialist" },
+];
+
 const formatPhoneNumber = (value: string) => {
   const numbers = value.replace(/\D/g, "");
   const chars = numbers.split("");
@@ -69,6 +77,7 @@ const BookingModalContent = ({
   selectedService: string | null;
 }) => {
   const [step, setStep] = useState(1);
+  const [selectedProfessional, setSelectedProfessional] = useState<{name: string, role: string} | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [details, setDetails] = useState({
@@ -130,6 +139,43 @@ const BookingModalContent = ({
                   exit={{ opacity: 0, x: -20 }}
                 >
                   <div className="mb-8 flex items-center gap-3">
+                    <User className="text-brand-accent" size={24} />
+                    <h2 className="text-3xl font-bold tracking-tight text-white">
+                      Elige a tu Profesional
+                    </h2>
+                  </div>
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    {PROFESSIONALS.map((prof) => (
+                      <button
+                        key={prof.id}
+                        onClick={() => {
+                          setSelectedProfessional({ name: prof.name, role: prof.role });
+                          nextStep();
+                        }}
+                        className="flex flex-col items-start justify-center rounded-2xl border border-white/5 bg-white/5 p-4 text-left transition-all hover:border-brand-accent hover:bg-brand-accent/10"
+                      >
+                        <span className="font-bold text-white text-lg">{prof.name}</span>
+                        <span className="text-white/40 text-sm mt-1">{prof.role}</span>
+                      </button>
+                    ))}
+                  </div>
+                </m.div>
+              )}
+
+              {step === 2 && (
+                <m.div
+                  key="step2"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                >
+                  <button
+                    onClick={prevStep}
+                    className="mb-6 flex items-center gap-2 text-white/40 transition-colors hover:text-white"
+                  >
+                    <ChevronLeft size={16} /> Volver a Profesionales
+                  </button>
+                  <div className="mb-8 flex items-center gap-3">
                     <CalendarIcon className="text-brand-accent" size={24} />
                     <h2 className="text-3xl font-bold tracking-tight text-white">
                       Selecciona una Fecha
@@ -145,7 +191,7 @@ const BookingModalContent = ({
                 </m.div>
               )}
 
-              {step === 2 && (
+              {step === 3 && (
                 <m.div
                   key="step2"
                   initial={{ opacity: 0, x: 20 }}
@@ -181,7 +227,7 @@ const BookingModalContent = ({
                 </m.div>
               )}
 
-              {step === 3 && (
+              {step === 4 && (
                 <m.div
                   key="step3"
                   initial={{ opacity: 0, x: 20 }}
@@ -266,7 +312,7 @@ const BookingModalContent = ({
                 </m.div>
               )}
 
-              {step === 4 && (
+              {step === 5 && (
                 <m.div
                   key="step4"
                   initial={{ opacity: 0, scale: 0.9 }}
@@ -281,7 +327,7 @@ const BookingModalContent = ({
                   </h2>
                   <p className="mx-auto mb-10 max-w-sm text-xl text-white/50">
                     Te hemos asignado el {selectedDate?.toLocaleDateString()} a las{" "}
-                    {selectedTime}. Nos vemos pronto en Baskunana.
+                    {selectedTime} con {selectedProfessional?.name}. Nos vemos pronto en Baskunana.
                   </p>
                   <button
                     onClick={resetAndClose}

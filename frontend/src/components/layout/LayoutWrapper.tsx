@@ -5,7 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import BookingModal from "@/components/shared/BookingModal";
 import CustomCursor from "@/components/cursor/CustomCursor";
-
+import Image from "next/image";
 import { useEffect } from "react";
 
 export default function LayoutWrapper({ children }: { children: React.ReactNode }) {
@@ -29,10 +29,13 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
       {/* Persistent Background Image (Only for client pages) */}
       <div className="fixed inset-0 -z-50 pointer-events-none overflow-hidden">
         <div className="absolute inset-0 bg-black/40 z-10" />
-        <img
+        <Image
           src="/assets/hero-bg.png"
           alt="Background"
-          className="w-full h-full object-cover blur-md opacity-70 scale-105"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover blur-md opacity-70 scale-105"
         />
       </div>
 

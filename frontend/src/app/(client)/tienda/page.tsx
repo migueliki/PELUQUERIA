@@ -3,13 +3,8 @@
 import React from "react";
 import { m } from "framer-motion";
 import ServicesSection from "@/components/sections/ServicesSection";
-import { useBooking } from "@/context/BookingContext";
-import { fadeInUp } from "@/lib/animations";
-import { ShieldCheck, Truck, Sparkles } from "lucide-react";
 
 export default function TiendaPage() {
-  const { openBooking } = useBooking();
-
   return (
     <main className="min-h-screen">
       {/* Page Header */}

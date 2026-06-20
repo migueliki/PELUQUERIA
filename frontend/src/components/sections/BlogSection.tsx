@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { m } from "framer-motion";
 import Image from "next/image";
-import { Heart, MessageCircle, Share2, Calendar, User, ArrowRight } from "lucide-react";
+import { Heart, MessageCircle, Calendar, User, ArrowRight } from "lucide-react";
 import { BLOG_POSTS, BlogPost } from "@/data/blog";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 import BlogPostModal from "../shared/BlogPostModal";
@@ -113,7 +113,7 @@ const BlogCard = ({ post, onOpen }: { post: BlogPost, onOpen: () => void }) => {
         </div>
 
         <button className="mt-8 flex items-center gap-2 text-white font-bold text-sm uppercase tracking-widest group/btn">
-          Leer más <ArrowRight size={16} className="group-hover/btn:translate-x-2 transition-transform" />
+          Leer Más <ArrowRight size={16} className="group-hover/btn:translate-x-2 transition-transform" />
         </button>
       </div>
     </m.div>

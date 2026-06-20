@@ -17,7 +17,7 @@ const NAV_LINKS = [
   { href: "/galeria", label: "Galería" },
   { href: "/tienda", label: "Tienda" },
   { href: "/equipo", label: "Equipo" },
-  { href: "/blog", label: "Blog" },
+  { href: "/noticias", label: "Noticias" },
 ];
 
 const SERVICES = ["Balayage", "Cortes", "Tratamientos"];

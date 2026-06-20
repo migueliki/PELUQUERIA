@@ -1,10 +1,11 @@
 "use client";
 
-import React, { memo } from "react";
+import React, { memo, useState, useCallback } from "react";
 import { m, AnimatePresence } from "framer-motion";
-import { X, ShieldCheck, HelpCircle, ArrowRight } from "lucide-react";
+import { X, ShieldCheck, HelpCircle, ArrowRight, ShoppingCart, Check } from "lucide-react";
 import Image from "next/image";
 import { useScrollLock } from "@/hooks/useScrollLock";
+import { useCart } from "@/context/CartContext";
 
 interface Product {
   id: string;
@@ -28,8 +29,28 @@ interface ProductModalProps {
 const ProductModal = ({ product, isOpen, onClose, onReserve }: ProductModalProps) => {
   // Bloquear scroll cuando el modal está abierto
   useScrollLock(isOpen);
+  const { addItem, justAdded } = useCart();
+  const [addedFeedback, setAddedFeedback] = useState(false);
+
+  const handleAddToCart = useCallback(() => {
+    if (!product || product.stock === 0) return;
+
+    const priceNum = parseFloat(product.price.replace("€", "").replace(",", "."));
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: priceNum,
+      image: product.image,
+      category: product.category,
+    });
+
+    setAddedFeedback(true);
+    setTimeout(() => setAddedFeedback(false), 2000);
+  }, [product, addItem]);
 
   if (!product) return null;
+
+  const isJustAdded = addedFeedback || justAdded === product.id;
 
   return (
     <AnimatePresence>
@@ -97,20 +118,49 @@ const ProductModal = ({ product, isOpen, onClose, onReserve }: ProductModalProps
                   </DetailCard>
                 </div>
 
-                <div className="pt-8 sticky bottom-0 pb-8">
-                   <button
-                    onClick={() => product.stock > 0 && onReserve(product)}
+                <div className="pt-8 sticky bottom-0 pb-8 space-y-3">
+                  {/* Add to Cart Button */}
+                  <button
+                    onClick={handleAddToCart}
                     disabled={product.stock === 0}
                     className={`w-full py-5 rounded-2xl font-bold text-lg transition-all flex items-center justify-center gap-3 shadow-2xl group ${
-                      product.stock > 0 
-                        ? 'bg-white text-black hover:bg-brand-accent shadow-white/5' 
-                        : 'bg-white/5 text-white/20 border border-white/5 cursor-not-allowed'
+                      product.stock === 0
+                        ? 'bg-white/5 text-white/20 border border-white/5 cursor-not-allowed'
+                        : isJustAdded
+                          ? 'bg-green-500 text-white shadow-green-500/20'
+                          : 'bg-white text-black hover:bg-brand-accent shadow-white/5'
                     }`}
                   >
-                    {product.stock > 0 ? 'Recoger en Salón' : 'Sin Existencias'}
-                    {product.stock > 0 && <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />}
+                    {product.stock === 0 ? (
+                      'Sin Existencias'
+                    ) : isJustAdded ? (
+                      <>
+                        <Check size={20} />
+                        ¡Añadido al Carrito!
+                      </>
+                    ) : (
+                      <>
+                        <ShoppingCart size={20} />
+                        Añadir al Carrito
+                        <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                      </>
+                    )}
                   </button>
-                  <p className="text-center text-white/20 text-[10px] mt-4 uppercase tracking-[0.2em] font-medium">Pago disponible en recepción</p>
+
+                  {/* Reserve in Salon Button */}
+                  {product.stock > 0 && (
+                    <button
+                      onClick={() => onReserve(product)}
+                      className="w-full py-4 rounded-2xl font-bold text-sm transition-all flex items-center justify-center gap-3 bg-white/5 text-white/60 hover:bg-white/10 hover:text-white border border-white/5"
+                    >
+                      Recoger en Salón
+                      <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    </button>
+                  )}
+
+                  <p className="text-center text-white/20 text-[10px] mt-2 uppercase tracking-[0.2em] font-medium">
+                    Pago seguro con Stripe · Envío a toda España
+                  </p>
                 </div>
               </div>
             </div>
@@ -134,3 +184,4 @@ const DetailCard = memo(({ icon: Icon, title, children }: { icon: React.ElementT
 DetailCard.displayName = "DetailCard";
 
 export default ProductModal;
+

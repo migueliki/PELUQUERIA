@@ -2,9 +2,10 @@
 
 import React, { useMemo } from "react";
 import Link from "next/link";
-import { m } from "framer-motion";
-import { Scissors, Phone } from "lucide-react";
+import { m, AnimatePresence } from "framer-motion";
+import { Scissors, Phone, ShoppingCart } from "lucide-react";
 import { useBooking } from "@/context/BookingContext";
+import { useCart } from "@/context/CartContext";
 import { useScrollTo } from "@/hooks/useScrollTo";
 
 const NAV_LINKS = [
@@ -12,11 +13,12 @@ const NAV_LINKS = [
   { href: "/galeria", label: "Galería" },
   { href: "/tienda", label: "Tienda" },
   { href: "/equipo", label: "Equipo" },
-  { href: "/blog", label: "Blog" },
+  { href: "/noticias", label: "Noticias" },
 ];
 
 const Navbar = () => {
   const { openBooking } = useBooking();
+  const { itemCount, openCart } = useCart();
   const { scrollToSection, pathname } = useScrollTo();
 
   const links = useMemo(() => NAV_LINKS.map(({ href, label, id }) => (
@@ -60,6 +62,27 @@ const Navbar = () => {
           <Phone size={16} />
           <span>+34 968 154 346</span>
         </a>
+
+        {/* Cart Button */}
+        <button
+          onClick={openCart}
+          className="relative p-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all text-white/60 hover:text-white hover:scale-105"
+          aria-label="Abrir carrito"
+        >
+          <ShoppingCart size={18} />
+          <AnimatePresence>
+            {itemCount > 0 && (
+              <m.span
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0 }}
+                className="absolute -top-1.5 -right-1.5 bg-white text-black text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center shadow-lg"
+              >
+                {itemCount > 9 ? "9+" : itemCount}
+              </m.span>
+            )}
+          </AnimatePresence>
+        </button>
 
         <button 
           onClick={() => openBooking()}

@@ -6,7 +6,9 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import CustomCursor from "@/components/cursor/CustomCursor";
 import { BookingProvider } from "@/context/BookingContext";
+import { CartProvider } from "@/context/CartContext";
 import BookingModal from "@/components/shared/BookingModal";
+import CartDrawer from "@/components/shared/CartDrawer";
 import MotionProvider from "@/components/providers/MotionProvider";
 
 const geistSans = Geist({
@@ -49,13 +51,16 @@ export default function ClientLayout({
         </div>
 
         <MotionProvider>
-          <BookingProvider>
-            <CustomCursor />
-            <Navbar />
-            <main>{children}</main>
-            <Footer />
-            <BookingModal />
-          </BookingProvider>
+          <CartProvider>
+            <BookingProvider>
+              <CustomCursor />
+              <Navbar />
+              <main>{children}</main>
+              <Footer />
+              <BookingModal />
+              <CartDrawer />
+            </BookingProvider>
+          </CartProvider>
         </MotionProvider>
       </body>
     </html>

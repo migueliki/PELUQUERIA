@@ -6,7 +6,7 @@ export interface BlogPost {
   author: string;
   date: string;
   image: string;
-  category: "Consejos" | "Noticias" | "Tendencias";
+  category: "Consejos" | "Novedades" | "Tendencias";
   likes: number;
   comments: number;
 }
@@ -80,7 +80,7 @@ export const BLOG_POSTS: BlogPost[] = [
     author: "Sofía Martín",
     date: "01 Abr 2026",
     image: "/assets/hair-3.png",
-    category: "Noticias",
+    category: "Novedades",
     likes: 178,
     comments: 15
   },
@@ -104,7 +104,7 @@ export const BLOG_POSTS: BlogPost[] = [
     author: "Marco Antonio",
     date: "25 Mar 2026",
     image: "/assets/hair-4.png",
-    category: "Noticias",
+    category: "Novedades",
     likes: 67,
     comments: 12
   },

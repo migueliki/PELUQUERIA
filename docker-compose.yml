@@ -1,0 +1,126 @@
+services:
+  # ---------------------------------------------------------------------------
+  # PostgreSQL
+  # ---------------------------------------------------------------------------
+  db:
+    image: postgres:17-alpine
+    container_name: peluqueria-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-baskunana}
+      POSTGRES_USER: ${DB_USERNAME:-baskunana}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-baskunana}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-baskunana} -d ${DB_DATABASE:-baskunana}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - peluqueria-net
+
+  # ---------------------------------------------------------------------------
+  # Redis (sessions, queue, cache)
+  # ---------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: peluqueria-redis
+    restart: unless-stopped
+    command: redis-server --save 60 1 --loglevel warning
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    networks:
+      - peluqueria-net
+
+  # ---------------------------------------------------------------------------
+  # Backend (Laravel + PHP-FPM + Nginx)
+  # ---------------------------------------------------------------------------
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: peluqueria-backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      APP_NAME: Laravel
+      APP_ENV: production
+      APP_DEBUG: "false"
+      APP_KEY: ${APP_KEY}
+      APP_URL: ${APP_URL:-http://localhost:8000}
+      APP_LOCALE: es
+      APP_FALLBACK_LOCALE: es
+      LOG_CHANNEL: stack
+      LOG_STACK: single
+      DB_CONNECTION: pgsql
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_DATABASE: ${DB_DATABASE:-baskunana}
+      DB_USERNAME: ${DB_USERNAME:-baskunana}
+      DB_PASSWORD: ${DB_PASSWORD:-baskunana}
+      SESSION_DRIVER: redis
+      SESSION_CONNECTION: default
+      SESSION_LIFETIME: 120
+      SESSION_DOMAIN: ${SESSION_DOMAIN:-localhost}
+      SESSION_SAME_SITE: lax
+      QUEUE_CONNECTION: redis
+      CACHE_STORE: redis
+      FILESYSTEM_DISK: local
+      BROADCAST_CONNECTION: log
+      MAIL_MAILER: log
+      REDIS_CLIENT: phpredis
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3000}
+      STRIPE_KEY: ${STRIPE_KEY:-}
+      STRIPE_SECRET: ${STRIPE_SECRET:-}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-}
+    ports:
+      - "8000:80"
+    volumes:
+      - backend-storage:/var/www/html/storage
+    networks:
+      - peluqueria-net
+
+  # ---------------------------------------------------------------------------
+  # Frontend (Next.js standalone)
+  # ---------------------------------------------------------------------------
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:8000}
+    container_name: peluqueria-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      HOSTNAME: 0.0.0.0
+    ports:
+      - "3000:3000"
+    networks:
+      - peluqueria-net
+
+networks:
+  peluqueria-net:
+    driver: bridge
+
+volumes:
+  db-data:
+  redis-data:
+  backend-storage:

@@ -76,7 +76,7 @@ const HeroSection = () => {
         className="absolute bottom-10 left-0 right-0 px-6 hidden md:flex justify-center"
       >
         <div className="flex flex-wrap justify-center items-center gap-16 opacity-20 grayscale hover:opacity-100 transition-all duration-700">
-          {["L'ORÉAL", "KÉRASTASE", "GHĎ", "REDKEN", "OLAPLEX"].map((logo) => (
+          {["L'ORÉAL", "KÉRASTASE", "GHD", "REDKEN", "OLAPLEX"].map((logo) => (
             <span key={logo} className="text-xl font-black tracking-widest">{logo}</span>
           ))}
         </div>

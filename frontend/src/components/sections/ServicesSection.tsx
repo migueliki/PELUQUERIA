@@ -4,9 +4,10 @@ import React, { useState, memo, useCallback } from "react";
 import type { UIEvent } from "react";
 import { m } from "framer-motion";
 import Image from "next/image";
-import { ShoppingBag, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ShoppingBag, ArrowRight, ChevronLeft, ChevronRight, ShoppingCart, Check } from "lucide-react";
 import { fadeInUp } from "@/lib/animations";
 import { useBooking } from "@/context/BookingContext";
+import { useCart } from "@/context/CartContext";
 import ProductModal from "../shared/ProductModal";
 import { useCarousel } from "@/hooks/useCarousel";
 
@@ -32,7 +33,7 @@ const PRODUCTS: Product[] = [
 const PRODUCTS_ROW_1 = [...PRODUCTS];
 const PRODUCTS_ROW_2 = [...PRODUCTS].reverse();
 
-const ProductCard = memo(({ product, onClick }: { product: Product, onClick: () => void }) => (
+const ProductCard = memo(({ product, onClick, onAddToCart, isAdded }: { product: Product, onClick: () => void, onAddToCart: (e: React.MouseEvent) => void, isAdded: boolean }) => (
   <m.div 
     variants={fadeInUp} 
     className={`group relative h-full cursor-pointer transition-all duration-500 ${product.stock === 0 ? 'opacity-60 grayscale-[0.8]' : ''}`} 
@@ -47,7 +48,19 @@ const ProductCard = memo(({ product, onClick }: { product: Product, onClick: () 
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         priority={product.id === "p1"}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8 gap-3">
+        {product.stock > 0 && (
+          <button
+            onClick={onAddToCart}
+            className={`w-full py-3.5 rounded-2xl font-bold flex items-center justify-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 text-sm ${
+              isAdded
+                ? 'bg-green-500 text-white'
+                : 'bg-white/10 backdrop-blur-md text-white border border-white/20 hover:bg-white/20'
+            }`}
+          >
+            {isAdded ? <><Check size={16} /> ¡Añadido!</> : <><ShoppingCart size={16} /> Añadir al Carrito</>}
+          </button>
+        )}
         <button className="w-full bg-white text-black py-4 rounded-2xl font-bold flex items-center justify-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
           {product.stock > 0 ? 'Ver Detalles' : 'Ver Producto'} <ArrowRight size={18} />
         </button>
@@ -77,6 +90,7 @@ ProductCard.displayName = "ProductCard";
 
 const ServicesSection = () => {
   const { openBooking } = useBooking();
+  const { addItem, justAdded } = useCart();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const carousel1 = useCarousel();
@@ -98,6 +112,19 @@ const ServicesSection = () => {
     setSelectedProduct(product);
     setIsModalOpen(true);
   }, []);
+
+  const handleAddToCart = useCallback((e: React.MouseEvent, product: Product) => {
+    e.stopPropagation();
+    if (product.stock === 0) return;
+    const priceNum = parseFloat(product.price.replace("€", "").replace(",", "."));
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: priceNum,
+      image: product.image,
+      category: product.category,
+    });
+  }, [addItem]);
 
   const handleReserve = useCallback((product: Product) => {
     setIsModalOpen(false);
@@ -131,7 +158,7 @@ const ServicesSection = () => {
         <div ref={setFirstCarouselRef} onScroll={handleFirstCarouselScroll} className="flex gap-8 overflow-x-auto scrollbar-hide pb-16 snap-x snap-mandatory" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {PRODUCTS_ROW_1.map((product) => (
             <div key={product.id} className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] shrink-0 snap-start">
-              <ProductCard product={product} onClick={() => handleProductClick(product)} />
+              <ProductCard product={product} onClick={() => handleProductClick(product)} onAddToCart={(e) => handleAddToCart(e, product)} isAdded={justAdded === product.id} />
             </div>
           ))}
         </div>
@@ -149,7 +176,7 @@ const ServicesSection = () => {
         <div ref={setSecondCarouselRef} onScroll={handleSecondCarouselScroll} className="flex gap-8 overflow-x-auto scrollbar-hide pb-12 snap-x snap-mandatory" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {PRODUCTS_ROW_2.map((product) => (
             <div key={product.id} className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] shrink-0 snap-start">
-              <ProductCard product={product} onClick={() => handleProductClick(product)} />
+              <ProductCard product={product} onClick={() => handleProductClick(product)} onAddToCart={(e) => handleAddToCart(e, product)} isAdded={justAdded === product.id} />
             </div>
           ))}
         </div>

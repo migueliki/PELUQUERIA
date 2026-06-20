@@ -5,7 +5,6 @@ import { m } from "framer-motion";
 import TeamSection from "@/components/sections/TeamSection";
 import { useBooking } from "@/context/BookingContext";
 import { fadeInUp } from "@/lib/animations";
-import { Award, Heart, Star } from "lucide-react";
 
 export default function EquipoPage() {
   const { openBooking } = useBooking();

@@ -4,12 +4,8 @@ import React from "react";
 import { m } from "framer-motion";
 import ProjectGrid from "@/components/sections/ProjectGrid";
 import BeforeAfterSection from "@/components/sections/BeforeAfterSection";
-import { useBooking } from "@/context/BookingContext";
-import { fadeInUp } from "@/lib/animations";
 
 export default function GaleriaPage() {
-  const { openBooking } = useBooking();
-
   return (
     <main className="min-h-screen">
       {/* Page Header */}
