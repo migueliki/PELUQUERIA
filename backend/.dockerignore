@@ -22,5 +22,4 @@ storage/pail
 composer.phar
 *.log
 Dockerfile
-docker
 .dockerignore

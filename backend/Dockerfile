@@ -11,6 +11,7 @@ RUN composer install \
         --no-dev \
         --optimize-autoloader \
         --no-scripts \
+        --ignore-platform-reqs \
         --no-interaction \
         --no-ansi
 
